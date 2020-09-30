@@ -1,5 +1,8 @@
 import React from "react";
 
+import TodoList from "./components/TodoList";
+import TodoForm from "./components/TodoForm";
+
 class App extends React.Component {
   // you will need a place to store your state in this component.
   // design `App` to be the parent component of your application.
@@ -27,25 +30,15 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <>
         <h2>Welcome to your Todo App!</h2>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            type="text"
-            onChange={this.handleChange}
-            value={this.state.todoFormVal}
-          />
-          <input type="submit" value="Submit" />
-        </form>
-
-        <div>
-          <ol>
-            {this.state.todoList.map((item) => {
-              return <li>{item}</li>;
-            })}
-          </ol>
-        </div>
-      </div>
+        <TodoForm
+          todoFormVal={this.state.todoFormVal}
+          handleSubmit={this.handleSubmit}
+          handleChange={this.handleChange}
+        />
+        <TodoList todoList={this.state.todoList} />
+      </>
     );
   }
 }
