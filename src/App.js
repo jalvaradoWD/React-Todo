@@ -12,6 +12,7 @@ class App extends React.Component {
     this.state = {
       todoList: [],
       todoFormVal: "",
+      counter: 0,
     };
   }
 
@@ -23,8 +24,45 @@ class App extends React.Component {
     e.preventDefault();
 
     this.setState({
-      todoList: [...this.state.todoList, this.state.todoFormVal],
+      todoList: [
+        ...this.state.todoList,
+        {
+          id: this.state.counter,
+          todo: this.state.todoFormVal,
+          finished: false,
+        },
+      ],
       todoFormVal: "",
+      counter: this.state.counter + 1,
+    });
+  };
+
+  handleCheck = (e) => {
+    const itemId = Number(e.target.parentNode.attributes.metaId.value);
+    console.log(itemId);
+
+    this.setState({
+      todoList: [
+        ...this.state.todoList.map((item) => {
+          if (item.id === itemId) {
+            return {
+              ...item,
+              finished: !item.finished,
+            };
+          }
+          return item;
+        }),
+      ],
+    });
+  };
+
+  clearCompleted = (e) => {
+    e.preventDefault();
+
+    this.setState({
+      todoList: [
+        ...this.state.todoList.filter((item) => item.finished !== true),
+      ],
     });
   };
 
@@ -37,7 +75,11 @@ class App extends React.Component {
           handleSubmit={this.handleSubmit}
           handleChange={this.handleChange}
         />
-        <TodoList todoList={this.state.todoList} />
+        <button onClick={this.clearCompleted}>Clear Completed</button>
+        <TodoList
+          handleCheck={this.handleCheck}
+          todoList={this.state.todoList}
+        />
       </>
     );
   }

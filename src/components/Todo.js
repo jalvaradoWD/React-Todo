@@ -3,7 +3,17 @@ import "./Todo.css";
 
 class Todo extends Component {
   render() {
-    return <li>{this.props.item}</li>;
+    const { todo, finished, id } = this.props.item;
+    return (
+      <li metaId={id}>
+        {todo}{" "}
+        <input
+          type="checkbox"
+          checked={finished}
+          onClick={this.props.handleCheck}
+        />
+      </li>
+    );
   }
 }
 

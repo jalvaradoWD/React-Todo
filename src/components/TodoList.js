@@ -9,7 +9,13 @@ class TodoList extends Component {
     return (
       <ol>
         {this.props.todoList.map((item) => {
-          return <Todo item={item} />;
+          return (
+            <Todo
+              key={item.id}
+              handleCheck={this.props.handleCheck}
+              item={item}
+            />
+          );
         })}
       </ol>
     );

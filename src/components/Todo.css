@@ -4,4 +4,8 @@ li {
   font-weight: bold;
 
   color: crimson;
+
+  border-bottom: 2px solid black;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
 }
